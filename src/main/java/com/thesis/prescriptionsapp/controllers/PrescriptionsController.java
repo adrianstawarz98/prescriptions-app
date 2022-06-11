@@ -13,21 +13,23 @@ import java.util.Date;
 import java.util.List;
 
 @RestController
-public class PrescriptionsController implements PrescriptionsApi {
+public class PrescriptionsController implements PrescriptionsApi
+{
     @Override
-    public ResponseEntity<List<Prescription>> getAllPrescriptions() {
+    public ResponseEntity<List<Prescription>> getAllPrescriptions()
+    {
         Date date = new Date();
         OffsetDateTime offsetDateTime = date.toInstant().atOffset(ZoneOffset.UTC);
         List<Prescription> prescriptions = new ArrayList<>();
         Prescription prescription = new Prescription();
-        prescription.setPrescriptionDoctor("Adrian");
-        prescription.setPrescriptionUser("Damian");
-        prescription.setDatetime(offsetDateTime);
+        prescription.setDoctor("Adrian");
+        prescription.setUser("Damian");
+        prescription.setCreatedAt(offsetDateTime);
         prescription.setName("IBUM");
         Prescription prescription2 = new Prescription();
-        prescription2.setPrescriptionDoctor("Adrian2");
-        prescription2.setPrescriptionUser("Damian2");
-        prescription2.setDatetime(offsetDateTime);
+        prescription2.setDoctor("Adrian2");
+        prescription2.setUser("Damian2");
+        prescription2.setCreatedAt(offsetDateTime);
         prescription2.setName("IBUM2");
         prescriptions.add(prescription);
         prescriptions.add(prescription2);

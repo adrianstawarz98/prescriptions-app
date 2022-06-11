@@ -30,21 +30,34 @@ components:
       description: Prescription model
       type: object
       properties:
+        id:
+          description: Prescription id
+          type: integer
         name:
           description: Prescription name
           type: string
-        prescriptionUser:
+        user:
           description: User that prescription was assigned to
           type: string
-        prescriptionDoctor:
+        doctor:
           description: Doctor that prescribed prescription
           type: string
-        datetime:
+        createdAt:
           description: Date when prescription was assigned to user
           type: string
           format: date-time
-          pattern: (\d{4})-(\d{2})-(\d{2}) (\d{2}):(\d{2}):(\d{2})
-          example: 2022-06-11 14:00:00
+          example: 2019-10-12T07:20:50.52Z
+    Doctor:
+      description: Doctor which prescribes prescription
+      type: object
+      properties:
+        id:
+          description: Doctor id
+          type: integer
+        name:
+          description: Doctor name
+          type: string
+
 
 
 
