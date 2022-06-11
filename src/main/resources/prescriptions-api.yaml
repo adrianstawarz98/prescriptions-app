@@ -1,0 +1,50 @@
+openapi: 3.0.3
+info:
+  title: Prescriptions Service
+  description: Prescriptions Service
+  version: 0.0.1
+servers:
+  - url: 'http://localhost:8080/v1'
+    description: Development server
+paths:
+  /prescriptions:
+    get:
+      summary: All prescriptions
+      tags:
+        - "Prescriptions"
+      description: All prescriptions from database
+      operationId: getAllPrescriptions
+      responses:
+        "200":
+          description: A prescription object
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Prescription'
+
+components:
+  schemas:
+    Prescription:
+      description: Prescription model
+      type: object
+      properties:
+        name:
+          description: Prescription name
+          type: string
+        prescriptionUser:
+          description: User that prescription was assigned to
+          type: string
+        prescriptionDoctor:
+          description: Doctor that prescribed prescription
+          type: string
+        datetime:
+          description: Date when prescription was assigned to user
+          type: string
+          format: date-time
+          pattern: (\d{4})-(\d{2})-(\d{2}) (\d{2}):(\d{2}):(\d{2})
+          example: 2022-06-11 14:00:00
+
+
+
