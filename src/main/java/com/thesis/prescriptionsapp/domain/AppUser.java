@@ -16,13 +16,8 @@ public class AppUser
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Long id;
-
     private String name;
-
     private String password;
-
-
-
     @OneToMany
     @JoinColumn(name = "user")
     private List<Prescription> prescriptions;

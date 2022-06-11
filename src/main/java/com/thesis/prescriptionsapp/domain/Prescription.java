@@ -16,21 +16,16 @@ public class Prescription
     @Column(name = "id", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     @Column(name = "name", nullable = false)
     private String name;
-
     @Column(name = "created_at")
     private Date createdAt;
-
     @ManyToOne
     @JoinColumn(name = "user_id")
     private AppUser user;
-
-    @ManyToOne
+    @ManyToOne()
     @JoinColumn(name = "doctor_id")
     private Doctor doctor;
-
     @PrePersist
     void createdAt()
     {

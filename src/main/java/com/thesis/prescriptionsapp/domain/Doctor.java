@@ -16,10 +16,7 @@ public class Doctor
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Long id;
-
     @OneToMany
     @JoinColumn(name = "doctor")
     private List<Prescription> prescriptions;
-
-
 }
