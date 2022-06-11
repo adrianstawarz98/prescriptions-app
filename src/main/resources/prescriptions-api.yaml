@@ -4,7 +4,7 @@ info:
   description: Prescriptions Service
   version: 0.0.1
 servers:
-  - url: 'http://localhost:8080/v1'
+  - url: 'http://localhost:8080'
     description: Development server
 paths:
   /prescriptions:

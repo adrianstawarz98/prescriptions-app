@@ -17,10 +17,10 @@
         <java.version>18</java.version>
         <swagger-annotations-version>1.5.8</swagger-annotations-version>
         <spring-boot-starter-web.version>2.2.1.RELEASE</spring-boot-starter-web.version>
-        <springfox-version>2.8.0</springfox-version>
         <java-jwt.version>3.19.2</java-jwt.version>
         <jaxb-api.version>2.2.11</jaxb-api.version>
         <jackson-databind-nullable.version>0.1.0</jackson-databind-nullable.version>
+        <springdoc-openapi-ui.version>1.6.9</springdoc-openapi-ui.version>
     </properties>
     <dependencies>
         <dependency>
@@ -80,14 +80,9 @@
             <artifactId>spring-data-commons</artifactId>
         </dependency>
         <dependency>
-            <groupId>io.springfox</groupId>
-            <artifactId>springfox-swagger2</artifactId>
-            <version>${springfox-version}</version>
-        </dependency>
-        <dependency>
-            <groupId>io.springfox</groupId>
-            <artifactId>springfox-swagger-ui</artifactId>
-            <version>${springfox-version}</version>
+            <groupId>org.springdoc</groupId>
+            <artifactId>springdoc-openapi-ui</artifactId>
+            <version>${springdoc-openapi-ui.version}</version>
         </dependency>
         <dependency>
             <groupId>javax.xml.bind</groupId>
@@ -151,7 +146,7 @@
                             <supportingFilesToGenerate>ApiUtil.java</supportingFilesToGenerate>
                             <configOptions>
                                 <interfaceOnly>true</interfaceOnly>
-                                <documentationProvider>springfox</documentationProvider>
+                                <documentationProvider>springdoc</documentationProvider>
                                 <serializableModel>true</serializableModel>
                                 <snapshotVersion>true</snapshotVersion>
                             </configOptions>
