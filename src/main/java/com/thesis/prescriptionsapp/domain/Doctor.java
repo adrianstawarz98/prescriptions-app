@@ -19,4 +19,6 @@ public class Doctor
     @OneToMany
     @JoinColumn(name = "doctor")
     private List<Prescription> prescriptions;
+
+    private String name;
 }
