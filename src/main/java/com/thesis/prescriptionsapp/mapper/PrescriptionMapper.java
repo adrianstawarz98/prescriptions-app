@@ -2,11 +2,10 @@ package com.thesis.prescriptionsapp.mapper;
 
 import com.thesis.prescriptionsapp.domain.PrescriptionEntity;
 import com.thesis.prescriptionsapp.models.Prescription;
-import org.mapstruct.InheritInverseConfiguration;
-import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
-import org.mapstruct.Mappings;
+import org.mapstruct.*;
 import org.mapstruct.factory.Mappers;
+
+import java.util.List;
 
 @Mapper
 public interface PrescriptionMapper
@@ -20,8 +19,13 @@ public interface PrescriptionMapper
             @Mapping(target = "prescriptionUser", source = "user"),
             @Mapping(target = "prescriptionCreatedAt", source = "createdAt")
     })
-    PrescriptionEntity mapTo(Prescription prescription);
+    @Named("prescriptionToEntity")
+    PrescriptionEntity mapToEntity(Prescription prescription);
 
     @InheritInverseConfiguration
-    Prescription mapTo(PrescriptionEntity prescriptionEntity);
+    @Named("entityToPrescription")
+    Prescription mapToDto(PrescriptionEntity prescriptionEntity);
+
+    @IterableMapping(qualifiedByName = "entityToPrescription")
+    List<Prescription> mapToDtoList(List<PrescriptionEntity> prescriptionEntities);
 }
