@@ -9,10 +9,12 @@ import com.thesis.prescriptionsapp.services.PrescriptionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.request.NativeWebRequest;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.validation.Valid;
 import java.net.URI;
 import java.time.OffsetDateTime;
 import java.time.ZoneOffset;
@@ -28,7 +30,7 @@ public class PrescriptionsController implements PrescriptionsApi
     PrescriptionService prescriptionService;
 
     @Override
-    public ResponseEntity<Void> createPrescription(Prescription prescription)
+    public ResponseEntity<Void> createPrescription(@Validated Prescription prescription)
     {
         System.out.println(prescription.toString());
         PrescriptionEntity prescriptionEntity = PrescriptionMapper.INSTANCE.mapTo(prescription);

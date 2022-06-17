@@ -1,4 +1,4 @@
-openapi: 3.0.3
+openapi: 3.1.0
 info:
   title: Prescriptions Service
   description: Prescriptions Service
@@ -6,6 +6,28 @@ info:
 servers:
   - url: 'http://localhost:8080'
     description: Development server
+
+defaults:
+  responses:
+    '400':
+      schema:
+        $ref: '#/components/responses/400'
+    '401':
+      schema:
+        $ref: '#/components/responses/401'
+    '403':
+      schema:
+        $ref: '#/components/responses/403'
+    '404':
+      schema:
+        $ref: '#/components/responses/404'
+    '500':
+      schema:
+        $ref: '#/components/responses/500'
+    '501':
+      schema:
+        $ref: '#/components/responses/501'
+
 paths:
   /prescriptions:
     get:
@@ -23,12 +45,6 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Prescription'
-        default:
-          description: unexpected error
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Error"
     post:
       summary: Create a prescription
       operationId: createPrescription
@@ -43,12 +59,6 @@ paths:
       responses:
         '201':
           description: Null response
-        default:
-          description: unexpected error
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Error"
   /prescriptions/{prescriptionId}:
     get:
       summary: Info for a specific prescription
@@ -69,12 +79,6 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Prescription"
-        default:
-          description: unexpected error
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Error"
 
 components:
   schemas:
@@ -84,13 +88,19 @@ components:
       required:
         - id
         - name
+        - user
+        - doctor
       properties:
         id:
           description: Prescription id
           type: integer
+          readOnly: true
         name:
           description: Prescription name
           type: string
+          nullable: false
+          minLength: 1
+          maxLength: 50
         user:
           description: User that prescription was assigned to
           type: string
@@ -102,6 +112,7 @@ components:
           type: string
           format: date-time
           example: 2019-10-12T07:20:50.52Z
+          readOnly: true
     Doctor:
       description: Doctor which prescribes prescription
       type: object
@@ -109,9 +120,12 @@ components:
         id:
           description: Doctor id
           type: integer
+          readOnly: true
         name:
           description: Doctor name
           type: string
+          minLength: 1
+          maxLength: 50
         prescriptions:
           description: Prescriptions prescribed by doctor
           type: array
@@ -124,9 +138,12 @@ components:
         id:
           description: User id
           type: integer
+          readOnly: true
         name:
           description: User name
           type: string
+          minLength: 1
+          maxLength: 50
         password:
           description: User password
           type: string
@@ -148,8 +165,16 @@ components:
         message:
           type: string
           description: Error message
-
-
-
-
-
+  responses:
+    400:
+      description: The specified resource was not found
+    401:
+      description: You need to authorize in order to access this resource
+    403:
+      description: Request forbidden
+    404:
+      description: Not found
+    500:
+      description: Internal server error
+    501:
+      description: Not implemented
