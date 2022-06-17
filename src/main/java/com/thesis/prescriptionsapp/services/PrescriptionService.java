@@ -1,6 +1,6 @@
 package com.thesis.prescriptionsapp.services;
 
-import com.thesis.prescriptionsapp.domain.Prescription;
+import com.thesis.prescriptionsapp.domain.PrescriptionEntity;
 import com.thesis.prescriptionsapp.repositories.PrescriptionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,13 +18,19 @@ public class PrescriptionService
         this.prescriptionRepository = prescriptionRepository;
     }
 
-    public List<Prescription> getAllPrescriptions()
+    public List<PrescriptionEntity> getAllPrescriptions()
     {
         return prescriptionRepository.findAll();
     }
 
-    public Prescription addPrescription(final Prescription prescription)
+    public PrescriptionEntity addPrescription(final PrescriptionEntity prescriptionEntity)
     {
-        return prescriptionRepository.save(prescription);
+        return prescriptionRepository.save(prescriptionEntity);
     }
+
+    public PrescriptionEntity getPrescriptionById(final Integer prescriptionId)
+    {
+        return prescriptionRepository.getReferenceById(Long.valueOf(prescriptionId));
+    }
+
 }

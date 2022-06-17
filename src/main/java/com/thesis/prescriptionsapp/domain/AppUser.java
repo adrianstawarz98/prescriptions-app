@@ -18,7 +18,7 @@ public class AppUser
     private Long id;
     private String name;
     private String password;
-    @OneToMany
-    @JoinColumn(name = "user")
-    private List<Prescription> prescriptions;
+//    @OneToMany
+//    @JoinColumn(name = "user")
+//    private List<PrescriptionEntity> prescriptionEntities;
 }

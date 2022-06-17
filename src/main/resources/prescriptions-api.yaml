@@ -10,12 +10,12 @@ paths:
   /prescriptions:
     get:
       summary: All prescriptions
-      tags:
-        - "Prescriptions"
       description: All prescriptions from database
       operationId: getAllPrescriptions
+      tags:
+        - Prescription
       responses:
-        "200":
+        '200':
           description: A prescription object
           content:
             application/json:
@@ -23,12 +23,67 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Prescription'
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+    post:
+      summary: Create a prescription
+      operationId: createPrescription
+      tags:
+        - Prescription
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Prescription"
+        required: true
+      responses:
+        '201':
+          description: Null response
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /prescriptions/{prescriptionId}:
+    get:
+      summary: Info for a specific prescription
+      operationId: showPrescriptionById
+      tags:
+        - Prescription
+      parameters:
+        - name: prescriptionId
+          in: path
+          required: true
+          description: The id of the prescription to retrieve
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Expected response to a valid request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Prescription"
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
 
 components:
   schemas:
     Prescription:
       description: Prescription model
       type: object
+      required:
+        - id
+        - name
       properties:
         id:
           description: Prescription id
@@ -57,6 +112,43 @@ components:
         name:
           description: Doctor name
           type: string
+        prescriptions:
+          description: Prescriptions prescribed by doctor
+          type: array
+          items:
+            $ref: '#/components/schemas/Prescription'
+    AppUser:
+      description: Application user
+      type: object
+      properties:
+        id:
+          description: User id
+          type: integer
+        name:
+          description: User name
+          type: string
+        password:
+          description: User password
+          type: string
+        prescriptions:
+          description: Prescriptions assigned to user
+          type: array
+          items:
+            $ref: '#/components/schemas/Prescription'
+    Error:
+      type: object
+      required:
+        - code
+        - message
+      properties:
+        code:
+          type: integer
+          format: int32
+          description: Code of the error message
+        message:
+          type: string
+          description: Error message
+
 
 
 
